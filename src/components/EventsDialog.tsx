@@ -9,11 +9,10 @@ import {
 import { Save } from '@mui/icons-material';
 import { DesktopDatePicker, LoadingButton } from '@mui/lab';
 import { useEffect, useState } from 'react';
-import { useMutation, useQueryClient } from 'react-query';
 
 import { Event } from '../types/interface/event';
-import { CreateEventDto } from '../types/interface/createEventDto';
-import { api } from '../utils/api';
+import { useCreateEventMutation } from '../hooks/useCreateEventMutation';
+import { useEditEventMutation } from '../hooks/useEditEventMutation';
 
 interface Props {
   selectedEvent: Event | undefined;
@@ -26,13 +25,8 @@ export const EventsDialog = ({ selectedEvent, open, onClose }: Props) => {
   const [city, setCity] = useState('');
   const [date, setDate] = useState<Date>(new Date());
 
-  const queryClient = useQueryClient();
-  const postMutation = useMutation((event: CreateEventDto) => {
-    return api.post('/events', event);
-  });
-  const patchMutation = useMutation(({ id, ...event }: Event) => {
-    return api.patch(`/events/${id}`, event);
-  });
+  const createEventMutation = useCreateEventMutation();
+  const editEventMutation = useEditEventMutation();
 
   const dialogType: 'edit' | 'create' = selectedEvent ? 'edit' : 'create';
 
@@ -45,33 +39,21 @@ export const EventsDialog = ({ selectedEvent, open, onClose }: Props) => {
   }, []);
 
   function createEvent() {
-    const event: CreateEventDto = {
+    createEventMutation.mutate({
       title,
       city,
       date,
-    };
-    postMutation.mutate(event, {
-      onSuccess: () => {
-        queryClient.invalidateQueries('events');
-        onClose();
-      },
     });
   }
 
   function updateEvent() {
     if (!selectedEvent) return;
 
-    const event: Event = {
+    editEventMutation.mutate({
       ...selectedEvent,
       title,
       city,
       date,
-    };
-    patchMutation.mutate(event, {
-      onSuccess: () => {
-        queryClient.invalidateQueries('events');
-        onClose();
-      },
     });
   }
 
@@ -108,8 +90,8 @@ export const EventsDialog = ({ selectedEvent, open, onClose }: Props) => {
         <LoadingButton
           loading={
             dialogType === 'create'
-              ? postMutation.isLoading
-              : patchMutation.isLoading
+              ? createEventMutation.isLoading
+              : editEventMutation.isLoading
           }
           color="primary"
           variant="contained"
