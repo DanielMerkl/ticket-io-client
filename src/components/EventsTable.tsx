@@ -14,9 +14,17 @@ import { Delete, Edit, LocalActivity } from '@mui/icons-material';
 
 interface Props {
   events: Event[];
+  onTicketClick: (eventId: string) => void;
+  onEdit: (event: Event) => void;
+  onDelete: (eventId: string) => void;
 }
 
-export const EventsTable = ({ events }: Props) => (
+export const EventsTable = ({
+  events,
+  onTicketClick,
+  onEdit,
+  onDelete,
+}: Props) => (
   <TableContainer
     sx={{ maxWidth: 800, margin: 'auto', my: 4 }}
     component={Paper}
@@ -43,13 +51,19 @@ export const EventsTable = ({ events }: Props) => (
             </TableCell>
             <TableCell align="right">
               <div>
-                <IconButton aria-label="tickets">
+                <IconButton
+                  aria-label="tickets"
+                  onClick={() => onTicketClick(event.id)}
+                >
                   <LocalActivity />
                 </IconButton>
-                <IconButton aria-label="edit">
+                <IconButton aria-label="edit" onClick={() => onEdit(event)}>
                   <Edit />
                 </IconButton>
-                <IconButton aria-label="delete">
+                <IconButton
+                  aria-label="delete"
+                  onClick={() => onDelete(event.id)}
+                >
                   <Delete />
                 </IconButton>
               </div>

@@ -1,28 +1,42 @@
-import { useEffect } from 'react';
+import { useState } from 'react';
 
 import { useEvents } from './hooks/useEvents';
-import { api } from './utils/api';
 import { Event } from './types/interface/event';
 import { EventsTable } from './components/EventsTable';
 import { EventsDialog } from './components/EventsDialog';
+import { useDeleteEventMutation } from './hooks/useDeleteEventMutation';
 
 export function App() {
   const { data: events } = useEvents();
 
-  useEffect(() => {
-    const event: Omit<Event, 'id'> = {
-      title: 'Banane',
-      city: 'Paris',
-      date: new Date(),
-    };
-    api.post('/events', event);
-  }, []);
+  const deleteEventMutation = useDeleteEventMutation();
+
+  const [isEventsDialogOpen, setIsEventsDialogOpen] = useState(false);
+  const [selectedEvent, setSelectedEvent] = useState<Event | null>(null);
+
+  function handleTicketsClick(eventId: string) {
+    // TODO: implement
+  }
+
+  function handleEdit(event: Event) {
+    setSelectedEvent(event);
+    setIsEventsDialogOpen(true);
+  }
+
+  function handleDelete(eventId: string) {
+    deleteEventMutation.mutate(eventId);
+  }
 
   return (
     <main>
-      <EventsTable events={events ?? []} />
+      <EventsTable
+        events={events ?? []}
+        onTicketClick={handleTicketsClick}
+        onEdit={handleEdit}
+        onDelete={handleDelete}
+      />
       <EventsDialog
-        selectedEvent={undefined}
+        selectedEvent={selectedEvent}
         open={isEventsDialogOpen}
         onClose={() => setIsEventsDialogOpen(false)}
       />

@@ -15,7 +15,7 @@ import { useCreateEventMutation } from '../hooks/useCreateEventMutation';
 import { useEditEventMutation } from '../hooks/useEditEventMutation';
 
 interface Props {
-  selectedEvent: Event | undefined;
+  selectedEvent: Event | null;
   open: boolean;
   onClose: () => void;
 }
@@ -36,7 +36,7 @@ export const EventsDialog = ({ selectedEvent, open, onClose }: Props) => {
     setTitle(selectedEvent.title);
     setCity(selectedEvent.city);
     setDate(selectedEvent.date);
-  }, []);
+  }, [selectedEvent]);
 
   function createEvent() {
     createEventMutation.mutate({
@@ -44,6 +44,7 @@ export const EventsDialog = ({ selectedEvent, open, onClose }: Props) => {
       city,
       date,
     });
+    onClose();
   }
 
   function updateEvent() {
@@ -55,6 +56,7 @@ export const EventsDialog = ({ selectedEvent, open, onClose }: Props) => {
       city,
       date,
     });
+    onClose();
   }
 
   return (
