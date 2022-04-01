@@ -4,12 +4,12 @@ import { useEvents } from './hooks/useEvents';
 import { Event } from './types/interface/event';
 import { EventsTable } from './components/EventsTable';
 import { EventsDialog } from './components/EventsDialog';
-import { useDeleteEventMutation } from './hooks/useDeleteEventMutation';
+import { useEventsMutation } from './hooks/useEventsMutation';
 
 export function App() {
   const { data: events } = useEvents();
 
-  const deleteEventMutation = useDeleteEventMutation();
+  const { deleteEventMutation } = useEventsMutation();
 
   const [isEventsDialogOpen, setIsEventsDialogOpen] = useState(false);
   const [selectedEvent, setSelectedEvent] = useState<Event | null>(null);

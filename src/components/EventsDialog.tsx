@@ -11,8 +11,7 @@ import { DesktopDatePicker, LoadingButton } from '@mui/lab';
 import { useEffect, useState } from 'react';
 
 import { Event } from '../types/interface/event';
-import { useCreateEventMutation } from '../hooks/useCreateEventMutation';
-import { useEditEventMutation } from '../hooks/useEditEventMutation';
+import { useEventsMutation } from '../hooks/useEventsMutation';
 
 interface Props {
   selectedEvent: Event | null;
@@ -25,8 +24,7 @@ export const EventsDialog = ({ selectedEvent, open, onClose }: Props) => {
   const [city, setCity] = useState('');
   const [date, setDate] = useState<Date>(new Date());
 
-  const createEventMutation = useCreateEventMutation();
-  const editEventMutation = useEditEventMutation();
+  const { createEventMutation, editEventMutation } = useEventsMutation();
 
   const dialogType: 'edit' | 'create' = selectedEvent ? 'edit' : 'create';
 
