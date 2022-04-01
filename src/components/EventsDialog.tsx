@@ -29,11 +29,9 @@ export const EventsDialog = ({ selectedEvent, open, onClose }: Props) => {
   const dialogType: 'edit' | 'create' = selectedEvent ? 'edit' : 'create';
 
   useEffect(() => {
-    if (!selectedEvent) return;
-
-    setTitle(selectedEvent.title);
-    setCity(selectedEvent.city);
-    setDate(selectedEvent.date);
+    setTitle(selectedEvent?.title ?? '');
+    setCity(selectedEvent?.city ?? '');
+    setDate(selectedEvent?.date ?? new Date());
   }, [selectedEvent]);
 
   function createEvent() {

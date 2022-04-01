@@ -1,4 +1,6 @@
 import { useState } from 'react';
+import { Fab } from '@mui/material';
+import { Add } from '@mui/icons-material';
 
 import { useEvents } from './hooks/useEvents';
 import { Event } from './types/interface/event';
@@ -13,6 +15,11 @@ export function App() {
 
   const [isEventsDialogOpen, setIsEventsDialogOpen] = useState(false);
   const [selectedEvent, setSelectedEvent] = useState<Event | null>(null);
+
+  function handleAddClick() {
+    setSelectedEvent(null);
+    setIsEventsDialogOpen(true);
+  }
 
   function handleTicketsClick(eventId: string) {
     // TODO: implement
@@ -40,6 +47,15 @@ export function App() {
         open={isEventsDialogOpen}
         onClose={() => setIsEventsDialogOpen(false)}
       />
+      <Fab
+        variant="extended"
+        color="primary"
+        sx={{ position: 'fixed', bottom: '1rem', right: '1rem' }}
+        onClick={handleAddClick}
+      >
+        <Add sx={{ mr: 1 }} />
+        Event Hinzufügen
+      </Fab>
     </main>
   );
 }
