@@ -40,6 +40,7 @@ export const EventsDialog = ({ selectedEvent, open, onClose }: Props) => {
       city,
       date,
     });
+    resetForm();
     onClose();
   }
 
@@ -52,7 +53,14 @@ export const EventsDialog = ({ selectedEvent, open, onClose }: Props) => {
       city,
       date,
     });
+    resetForm();
     onClose();
+  }
+
+  function resetForm() {
+    setTitle('');
+    setCity('');
+    setDate(new Date());
   }
 
   return (
