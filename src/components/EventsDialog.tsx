@@ -62,6 +62,7 @@ export const EventsDialog = ({ selectedEvent, open, onClose }: Props) => {
       </DialogTitle>
       <DialogContent sx={{ display: 'grid', gap: 1 }}>
         <TextField
+          autoFocus
           label="Titel"
           variant="outlined"
           margin="dense"
