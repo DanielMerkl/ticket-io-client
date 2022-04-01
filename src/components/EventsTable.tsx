@@ -18,7 +18,7 @@ interface Props {
 
 export const EventsTable = ({ events }: Props) => (
   <TableContainer
-    sx={{ maxWidth: 800, margin: 'auto', mt: 4 }}
+    sx={{ maxWidth: 800, margin: 'auto', my: 4 }}
     component={Paper}
   >
     <Table sx={{ minWidth: 650 }}>
