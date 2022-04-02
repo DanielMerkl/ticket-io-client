@@ -1,6 +1,6 @@
 import { useMemo, useState } from 'react';
 import { LoadingButton } from '@mui/lab';
-import { Add, Delete } from '@mui/icons-material';
+import { Add } from '@mui/icons-material';
 import {
   Box,
   Button,
@@ -8,19 +8,13 @@ import {
   DialogActions,
   DialogContent,
   DialogTitle,
-  IconButton,
-  Table,
-  TableBody,
-  TableCell,
-  TableContainer,
-  TableHead,
-  TableRow,
   TextField,
   Typography,
 } from '@mui/material';
 
 import { useTickets } from '../hooks/useTickets';
 import { useTicketsMutation } from '../hooks/useTicketsMutation';
+import { TicketsTable } from './TicketsTable';
 
 interface Props {
   eventId: string | null;
@@ -67,38 +61,7 @@ export const TicketsDialog = ({ eventId, open, onClose }: Props) => {
         }}
       >
         {tickets && tickets.length > 0 ? (
-          <TableContainer>
-            <Table stickyHeader>
-              <TableHead>
-                <TableRow>
-                  <TableCell align="left">Vorname</TableCell>
-                  <TableCell align="left">Nachname</TableCell>
-                  <TableCell align="left">Barcode</TableCell>
-                  <TableCell align="center">Löschen</TableCell>
-                </TableRow>
-              </TableHead>
-              <TableBody>
-                {tickets?.map((ticket) => (
-                  <TableRow
-                    key={ticket.id}
-                    sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
-                  >
-                    <TableCell align="left">{ticket.firstName}</TableCell>
-                    <TableCell align="left">{ticket.lastName}</TableCell>
-                    <TableCell align="left">{ticket.barcode}</TableCell>
-                    <TableCell align="center">
-                      <IconButton
-                        aria-label="delete"
-                        onClick={() => handleDeleteTicketClick(ticket.id)}
-                      >
-                        <Delete />
-                      </IconButton>
-                    </TableCell>
-                  </TableRow>
-                ))}
-              </TableBody>
-            </Table>
-          </TableContainer>
+          <TicketsTable tickets={tickets} onDelete={handleDeleteTicketClick} />
         ) : (
           <Typography sx={{ mt: 2 }}>
             Noch keine Tickets hinzugefügt.
