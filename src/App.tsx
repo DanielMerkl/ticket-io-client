@@ -7,22 +7,25 @@ import { Event } from './types/interface/event';
 import { EventsTable } from './components/EventsTable';
 import { EventsDialog } from './components/EventsDialog';
 import { useEventsMutation } from './hooks/useEventsMutation';
+import { TicketsDialog } from './components/TicketsDialog';
 
 export function App() {
   const { data: events } = useEvents();
 
   const { deleteEventMutation } = useEventsMutation();
 
-  const [isEventsDialogOpen, setIsEventsDialogOpen] = useState(false);
   const [selectedEvent, setSelectedEvent] = useState<Event | null>(null);
+  const [isEventsDialogOpen, setIsEventsDialogOpen] = useState(false);
+  const [isTicketsDialogOpen, setIsTicketsDialogOpen] = useState(false);
 
   function handleAddClick() {
     setSelectedEvent(null);
     setIsEventsDialogOpen(true);
   }
 
-  function handleTicketsClick(eventId: string) {
-    // TODO: implement
+  function handleTicketsClick(event: Event) {
+    setSelectedEvent(event);
+    setIsTicketsDialogOpen(true);
   }
 
   function handleEdit(event: Event) {
@@ -46,6 +49,11 @@ export function App() {
         selectedEvent={selectedEvent}
         open={isEventsDialogOpen}
         onClose={() => setIsEventsDialogOpen(false)}
+      />
+      <TicketsDialog
+        eventId={selectedEvent?.id ?? null}
+        open={isTicketsDialogOpen}
+        onClose={() => setIsTicketsDialogOpen(false)}
       />
       <Fab
         variant="extended"
