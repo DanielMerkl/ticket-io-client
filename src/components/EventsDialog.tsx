@@ -71,6 +71,8 @@ export const EventsDialog = ({ selectedEvent, open, onClose }: Props) => {
       <DialogContent sx={{ display: 'grid', gap: 1 }}>
         <TextField
           autoFocus
+          id="title"
+          autoComplete="off"
           label="Titel"
           variant="outlined"
           margin="dense"
@@ -79,6 +81,8 @@ export const EventsDialog = ({ selectedEvent, open, onClose }: Props) => {
         />
         <TextField
           label="Stadt"
+          id="city"
+          autoComplete="off"
           variant="outlined"
           margin="dense"
           value={city}
