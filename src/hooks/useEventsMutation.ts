@@ -1,6 +1,5 @@
 import { useMutation, useQueryClient } from 'react-query';
 
-import { CreateEventDto } from '../types/interface/createEventDto';
 import { api } from '../utils/api';
 import { Event } from '../types/interface/event';
 
@@ -8,7 +7,7 @@ export const useEventsMutation = () => {
   const queryClient = useQueryClient();
 
   const createEventMutation = useMutation(
-    (event: CreateEventDto) => api.post('/events', event),
+    (event: Omit<Event, 'id'>) => api.post('/events', event),
     {
       onSuccess: () => queryClient.invalidateQueries('events'),
     },
