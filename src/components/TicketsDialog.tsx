@@ -67,7 +67,7 @@ export const TicketsDialog = ({ eventId, open, onClose }: Props) => {
             Noch keine Tickets hinzugefügt.
           </Typography>
         )}
-        <Box sx={{ display: 'grid', pt: 2 }}>
+        <Box sx={{ display: 'grid' }}>
           <Typography sx={{ mb: 2 }}>Weiteres Ticket</Typography>
           <TextField
             label="Vorname"
