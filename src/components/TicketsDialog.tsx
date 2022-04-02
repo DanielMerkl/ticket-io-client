@@ -135,8 +135,9 @@ export const TicketsDialog = ({ eventId, open, onClose }: Props) => {
             size="small"
             value={barcode}
             onChange={(event) => {
-              if (event.target.value.length <= 8) {
-                setBarcode(event.target.value);
+              const updatedBarcode = event.target.value;
+              if (updatedBarcode.length <= 8) {
+                setBarcode(updatedBarcode);
               }
             }}
             error={!isValidBarcode}
