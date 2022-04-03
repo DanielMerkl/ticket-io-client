@@ -49,6 +49,7 @@ export const EventsTable = ({
             <TableCell align="right">
               <div>
                 <IconButton
+                  color="primary"
                   aria-label="tickets"
                   onClick={() => onTicketClick(event)}
                 >

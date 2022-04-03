@@ -8,6 +8,7 @@ import { EventsTable } from './components/EventsTable';
 import { EventsDialog } from './components/EventsDialog';
 import { useEventsMutation } from './hooks/useEventsMutation';
 import { TicketsDialog } from './components/TicketsDialog';
+import { Header } from './components/Header';
 
 export function App() {
   const { data: events } = useEvents();
@@ -38,34 +39,37 @@ export function App() {
   }
 
   return (
-    <main>
-      <Container maxWidth="md" sx={{ p: 4 }}>
-        <EventsTable
-          events={events ?? []}
-          onTicketClick={handleTicketsClick}
-          onEdit={handleEdit}
-          onDelete={handleDelete}
+    <>
+      <Header />
+      <main>
+        <Container maxWidth="md" sx={{ p: 4 }}>
+          <EventsTable
+            events={events ?? []}
+            onTicketClick={handleTicketsClick}
+            onEdit={handleEdit}
+            onDelete={handleDelete}
+          />
+        </Container>
+        <EventsDialog
+          selectedEvent={selectedEvent}
+          open={isEventsDialogOpen}
+          onClose={() => setIsEventsDialogOpen(false)}
         />
-      </Container>
-      <EventsDialog
-        selectedEvent={selectedEvent}
-        open={isEventsDialogOpen}
-        onClose={() => setIsEventsDialogOpen(false)}
-      />
-      <TicketsDialog
-        eventId={selectedEvent?.id ?? null}
-        open={isTicketsDialogOpen}
-        onClose={() => setIsTicketsDialogOpen(false)}
-      />
-      <Fab
-        variant="extended"
-        color="primary"
-        sx={{ position: 'fixed', bottom: '1rem', right: '1rem' }}
-        onClick={handleAddClick}
-      >
-        <Add sx={{ mr: 1 }} />
-        Event Hinzufügen
-      </Fab>
-    </main>
+        <TicketsDialog
+          eventId={selectedEvent?.id ?? null}
+          open={isTicketsDialogOpen}
+          onClose={() => setIsTicketsDialogOpen(false)}
+        />
+        <Fab
+          variant="extended"
+          color="secondary"
+          sx={{ position: 'fixed', bottom: '1rem', right: '1rem' }}
+          onClick={handleAddClick}
+        >
+          <Add sx={{ mr: 1 }} />
+          Event Hinzufügen
+        </Fab>
+      </main>
+    </>
   );
 }
