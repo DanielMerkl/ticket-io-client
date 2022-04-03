@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Fab } from '@mui/material';
+import { Container, Fab } from '@mui/material';
 import { Add } from '@mui/icons-material';
 
 import { useEvents } from './hooks/useEvents';
@@ -39,12 +39,14 @@ export function App() {
 
   return (
     <main>
-      <EventsTable
-        events={events ?? []}
-        onTicketClick={handleTicketsClick}
-        onEdit={handleEdit}
-        onDelete={handleDelete}
-      />
+      <Container maxWidth="md" sx={{ p: 4 }}>
+        <EventsTable
+          events={events ?? []}
+          onTicketClick={handleTicketsClick}
+          onEdit={handleEdit}
+          onDelete={handleDelete}
+        />
+      </Container>
       <EventsDialog
         selectedEvent={selectedEvent}
         open={isEventsDialogOpen}

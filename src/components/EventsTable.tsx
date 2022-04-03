@@ -25,11 +25,8 @@ export const EventsTable = ({
   onEdit,
   onDelete,
 }: Props) => (
-  <TableContainer
-    sx={{ maxWidth: 800, margin: 'auto', my: 4 }}
-    component={Paper}
-  >
-    <Table sx={{ minWidth: 650 }}>
+  <TableContainer component={Paper}>
+    <Table>
       <TableHead>
         <TableRow>
           <TableCell align="right">Titel</TableCell>
