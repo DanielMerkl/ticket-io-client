@@ -1,5 +1,5 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
+import { createRoot } from 'react-dom/client';
 import { QueryClient, QueryClientProvider } from 'react-query';
 import AdapterDateFns from '@mui/lab/AdapterDateFns';
 import LocalizationProvider from '@mui/lab/LocalizationProvider';
@@ -11,7 +11,9 @@ import { theme } from './utils/theme';
 
 const queryClient = new QueryClient();
 
-ReactDOM.render(
+const root = createRoot(document.getElementById('root')!);
+
+root.render(
   <React.StrictMode>
     <QueryClientProvider client={queryClient}>
       <ThemeProvider theme={theme}>
@@ -21,5 +23,4 @@ ReactDOM.render(
       </ThemeProvider>
     </QueryClientProvider>
   </React.StrictMode>,
-  document.getElementById('root'),
 );
