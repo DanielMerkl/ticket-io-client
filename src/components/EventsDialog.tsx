@@ -64,7 +64,13 @@ export const EventsDialog = ({ selectedEvent, open, onClose }: Props) => {
   }
 
   return (
-    <Dialog open={open} onClose={onClose} maxWidth="xs" fullWidth>
+    <Dialog
+      data-testid="events-dialog"
+      open={open}
+      onClose={onClose}
+      maxWidth="xs"
+      fullWidth
+    >
       <DialogTitle>
         Event {dialogType === 'create' ? 'erstellen' : 'bearbeiten'}
       </DialogTitle>
